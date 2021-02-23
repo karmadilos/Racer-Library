@@ -7,7 +7,8 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 db_conn = pymysql.connect(
                 user='root',  
-                host='127.0.0.1', 
+                host='127.0.0.1',
+                password='blasy20159', 
                 db='libraryuser', 
                 charset='utf8',
                 autocommit=True
@@ -81,5 +82,5 @@ def logout():
 
 # 앱 실행
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run('0.0.0.0', port=5000)
     # app.run(debug = True)
