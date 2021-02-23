@@ -11,7 +11,7 @@ db_conn = pymysql.connect(
                 host='127.0.0.1', 
                 db='libraryuser', 
                 charset='utf8',
-                # autocommit=True
+                autocommit=True
 )
 db_cursor = db_conn.cursor()
 
