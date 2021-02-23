@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from flask import Flask, render_template, url_for, jsonify, session, request, redirect
 import pymysql
 
@@ -14,7 +15,6 @@ db_conn = pymysql.connect(
                 autocommit=True
 )
 db_cursor = db_conn.cursor()
-
 # 시작 페이지
 @app.route('/')
 def index():
