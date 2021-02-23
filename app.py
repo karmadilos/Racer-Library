@@ -7,7 +7,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 db_conn = pymysql.connect(
                 user='root', 
-                passwd='blasy20159', 
+                password='blasy20159', 
                 host='127.0.0.1', 
                 db='libraryuser', 
                 charset='utf8',
