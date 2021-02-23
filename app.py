@@ -9,6 +9,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 db_conn = pymysql.connect(
                 user='root',  
                 host='127.0.0.1',
+                host='azure@elice-kdt-ai-track-vm-racer-12.koreacentral.cloudapp.azure.com',
                 # password='blasy20159', 
                 db='libraryuser', 
                 charset='utf8',
