@@ -8,8 +8,8 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 db_conn = pymysql.connect(
                 user='root',  
-                # host='127.0.0.1',
-                host='elice-kdt-ai-track-vm-racer-12.koreacentral.cloudapp.azure.com',
+                host='127.0.0.1',
+                # host='elice-kdt-ai-track-vm-racer-12.koreacentral.cloudapp.azure.com',
                 # password='blasy20159', 
                 db='libraryuser', 
                 charset='utf8',
@@ -84,5 +84,5 @@ def logout():
 # 앱 실행
 if __name__ == '__main__':
     # print("test", flush=True)
-    app.run('0.0.0.0', port=80, debug = True)
+    app.run('elice-kdt-ai-track-vm-racer-12.koreacentral.cloudapp.azure.com', port=80, debug = True)
     # app.run(debug = True)
