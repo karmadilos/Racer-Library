@@ -1,0 +1,48 @@
+from app import db
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
+
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    bookname = db.Column(db.String(50), nullable=False)
+    publisher = db.Column(db.String(50), nullable=False)
+    author = db.Column(db.String(50), nullable=False)
+    published_date = db.Column(db.DateTime(), nullable=False)
+    pages = db.Column(db.Integer, nullable=False)
+    isbn = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    image_path = db.Column(db.String(50), nullable=False)
+    stock = db.Column(db.Integer, nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    link = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, bookname, publisher, author, published_date, pages, isbn, description, image_path, stock, rating, link):
+        self.bookname = bookname
+        self.publisher = publisher
+        self.author = author
+        self.published_date = published_date
+        self.pages = pages
+        self.isbn = isbn
+        self.description = description
+        self.image_path = image_path
+        self.stock = stock
+        self.rating = rating
+        self.link = link
+
+# db세팅법
+# 1. flask db init (최초 한번만 수행. 데이터베이스를 초기화한다.)
+# 2. flask db migrate (모델을 새로 생성하거나 변경할때 사용.)
+# 3. flask db upgrade (모델의 변경 내용을 실제 데이터베이스에 적용할 때 사용)
+
+# 주의사항
+# flask db migrate, flask db upgrade 할 때 app.py 의
+# from models import User, from models import Book 을 밖으로 빼주어야 한다.
