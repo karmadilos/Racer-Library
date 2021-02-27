@@ -48,10 +48,11 @@
           <div class="container">
             <a href="#" class="navbar-brand d-flex align-items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <strong>엘리스 도서관</strong>
+              <a href="/"><strong>엘리스 도서관</strong></a>
             </a>
             <a class="btn btn-outline-primary" href="/logout">로그아웃</a>
-            <a class="btn btn-outline-primary" href="/">마이페이지</a>
+            <a class="btn btn-outline-primary" href="/rental">대여기록</a>
+            <a class="btn btn-outline-primary" href="/back">반납하기</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -60,46 +61,34 @@
     </header>
 
     <main>
-        <section class="py-5 text-center container">
-          <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-              <h3 class="fw-light">레이서 도서관</h3>
-              <p class="lead text-muted">원하는 책을 찾아보고 대여하세요!</p>
-              <p>
-                <a href="#" class="btn btn-primary my-2">웹 개발</a>
-                <a href="#" class="btn btn-secondary my-2">인공지능</a>
-              </p>
-            </div>
-          </div>
-        </section>
-      
         <div class="album py-5 bg-light">
-          <div class="container">
-      
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              {% for book in book_info %}
-              <div class="col">
-                <div class="card shadow-sm">
-                  <img src="{{ book.image_path }}">
-                  <div class="card-body">
-                    <p class="card-text"><a href="/book/{{ book.id }}">{{ book.bookname }}</a></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">대여하기</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
+            <div class="container">
+        
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for rental_info in rental_list %}
+                <div class="col">
+                  <div class="card shadow-sm">
+                    <img src="{{ rental_info.book.image_path }}">
+                    <div class="card-body">
+                      <p class="card-text"><a href="/book/{{ rental_info.book_id }}">{{ rental_info.book.bookname }}</a></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <form action = "/back" method="POST">
+                            <input type="hidden" name = "book_id" value = "{{ rental_info.book.id }}">
+                            <button class="btn btn-sm btn-outline-secondary">반납하기</button>
+                            <!-- <button>요소 자체는 submit속성을 지니고 있기 때문에 type 정의가 되어있지 않다면 submit 동작을 한다. -->
+                          </form>
+                          <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
+                        </div>
+                        <small class="text-muted">대여일자 : {{ rental_info.rental_date.strftime('%Y-%m-%d') }}</small>
                       </div>
-                      <small class="text-muted">남은책수 : {{ book.stock }}</small>
                     </div>
                   </div>
                 </div>
+                {% endfor %}
               </div>
-              {% endfor %}
             </div>
           </div>
-        </div>
-        
-       
-        
     </main>
 
     <footer class="text-muted py-5">

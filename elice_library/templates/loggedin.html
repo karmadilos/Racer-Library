@@ -48,10 +48,11 @@
           <div class="container">
             <a href="#" class="navbar-brand d-flex align-items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <strong>엘리스 도서관</strong>
+              <a href="/"><strong>엘리스 도서관</strong></a>
             </a>
             <a class="btn btn-outline-primary" href="/logout">로그아웃</a>
-            <a class="btn btn-outline-primary" href="/">마이페이지</a>
+            <a class="btn btn-outline-primary" href="/rental">대여목록</a>
+            <a class="btn btn-outline-primary" href="/back">반납하기</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -85,7 +86,11 @@
                     <p class="card-text"><a href="/book/{{ book.id }}">{{ book.bookname }}</a></p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">대여하기</button>
+                        <form action = "/" method="POST">
+                          <input type="hidden" name = "book_id" value = "{{ book.id }}">
+                          <button class="btn btn-sm btn-outline-secondary">대여하기</button>
+                          <!-- <button>요소 자체는 submit속성을 지니고 있기 때문에 type 정의가 되어있지 않다면 submit 동작을 한다. -->
+                        </form>
                         <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
                       </div>
                       <small class="text-muted">남은책수 : {{ book.stock }}</small>

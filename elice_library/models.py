@@ -1,4 +1,4 @@
-from app import db
+from elice_library import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,11 +38,19 @@ class Book(db.Model):
         self.rating = rating
         self.link = link
 
+class Rental(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id', ondelete='CASCADE'))
+    user = db.relationship('User', backref=db.backref('rental_set'))
+    book = db.relationship('Book', backref=db.backref('rental_set'))
+    rental_date = db.Column(db.DateTime(), nullable=False)
+    return_date =db.Column(db.DateTime(), nullable=True)
+    
 # db세팅법
-# 1. flask db init (최초 한번만 수행. 데이터베이스를 초기화한다.)
-# 2. flask db migrate (모델을 새로 생성하거나 변경할때 사용.)
-# 3. flask db upgrade (모델의 변경 내용을 실제 데이터베이스에 적용할 때 사용)
-
-# 주의사항
-# flask db migrate, flask db upgrade 할 때 app.py 의
-# from models import User, from models import Book 을 밖으로 빼주어야 한다.
+# 0. 폴더 위치를 myproject로 이동
+# 1. export FLASK_APP=racer-library
+# 2. export FLASK_ENV=development
+# 3. flask db init (최초 한번 수행. 데이터베이스를 관리하는 초기 파일들을 migrations라는 디렉터리에 생성)
+# 4. flask db migrate (모델을 새로 생성하거나 변경할때 사용.)
+# 5. flask db upgrade (모델의 변경 내용을 실제 데이터베이스에 적용할 때 사용)
