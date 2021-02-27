@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from flask import Flask, render_template, url_for, jsonify, session, request, redirect
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -29,11 +30,21 @@ def create_app():
     
     return app
 
+# ssh azure@elice-kdt-ai-track-vm-racer-12.koreacentral.cloudapp.azure.com (ssh 접속 끊기 : exit)
+# YKHKQyRtrKoixQfA4bzFpw0hmWWIFDZk
+# cd racer-library
+# source python-env/bin/activate (가상환경 벗어나기 : deactivate)
+
 # export FLASK_APP=elice_library
 # export FLASK_ENV=development
 # export FLASK_RUN_RELOAD=False
 # flask run --host=0.0.0.0 --port=80
 
+# sudo python app.py runserver 0.0.0.0:80
+
+
 # 또는 
 # if __name__ == '__main__':
 #    app.run(debug=True, use_reloader=False)
+
+# elice-kdt-ai-track-vm-racer-12.koreacentral.cloudapp.azure.com:5000 주소창 입력
