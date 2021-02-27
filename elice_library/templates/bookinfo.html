@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이서 도서관</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> -->
+    <!-- <link rel="stylesheet" href="../static/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="../../static/css/tailwind.min.css">
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+</head>
+<body>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-md-7 py-4">
+                <h4 class="text-white">About</h4>
+                <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+              </div>
+              <div class="col-sm-4 offset-md-1 py-4">
+                <h4 class="text-white">Contact</h4>
+                <ul class="list-unstyled">
+                  <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                  <li><a href="#" class="text-white">Like on Facebook</a></li>
+                  <li><a href="#" class="text-white">Email me</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <a href="/"><strong>엘리스 도서관</strong></a>
+            </a>
+            <a class="btn btn-outline-primary" href="/logout">로그아웃</a>
+            <a class="btn btn-outline-primary" href="/rental">대여목록</a>
+            <a class="btn btn-outline-primary" href="/back">반납하기</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </div>
+    </header>
+
+    <!-- <main>
+        <div class="album py-5 bg-light">
+          <div class="container">
+      
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              {% for book in book_info %}
+              <div class="col">
+                <div class="card shadow-sm">
+                  <img src="../{{ book.image_path }}">
+                  <div class="card-body">
+                    <p class="card-text"><a href="/book/{{ book.id }}">{{ book.bookname }}</a></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">대여하기</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
+                      </div>
+                      <small class="text-muted">남은책수 : {{ book.stock }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+    </main> -->
+    <div class="min-h-screen bg-gray-200">  
+      <div class=" w-100 min-h-full"> 
+        <div class="flex flex-col items-center w-full">
+          <div class="flex w-full items-center justify-between border-2 bg-white p-10 pr-40 pl-40 m-3">
+            {% for book in book_info %}
+            <img class="h-80" src="../{{ book.image_path }}">
+            <table class="border-2">
+              <tr>
+                <th>책이름</th>
+                <td>{{book.bookname}}}</td>
+              </tr>
+              <tr>
+                <th>출판사</th>
+                <td>{{book.publisher}}</td>
+              </tr>
+              <tr>
+                <th>저자</th>
+                <td>{{book.author}}</td>
+              </tr>
+              <tr>
+                <th>출간일</th>
+                <td>{{book.published_date}}</td>
+              </tr>
+              <tr>
+                <th>페이지수</th>
+                <td>{{book.pages}}</td>
+              </tr>
+              <tr>
+                <th>ISBN 코드</th>
+                <td>{{book.isbn}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="p-10 bg-white">
+            <h1 class="text-2xl">책소개</h1>
+            <div class="mt-5">
+              <p>{{book.description}}</p>
+              {% endfor %}
+            </div>
+            <!-- <h2 class="text-2xl mt-2">댓글</h2>
+              <div class="mt-2 p-2 border-2">
+                <div class="float-left">
+                  <h2>김수영</h2>
+                  <p>test</p>
+                </div>
+                <div class="float-right">
+                  <div class="flex mt-2">
+                    <img width="32" src="/static/image/star_fill.png">
+                    <img width="32" src="/static/image/star_fill.png">
+                    <img width="32" src="/static/image/star_fill.png">
+                    <img width="32" src="/static/image/star_fill.png">
+                    <img width="32" src="/static/image/star_empty.png">
+                   </div>
+                </div>
+                <div style="clear: both"></div>
+              </div> -->
+            
+            <!-- <form method="post" class="mt-2">
+              <textarea class="border-2 w-full" name="content"></textarea>
+              <input id="rating" type="hidden" name="rating"/>
+              <div class="flex float-left">
+                
+                  <img class="rating_star" data-value="0" id="rating0" width="32"
+                      src="/static/image/star_empty.png">
+                
+                  <img class="rating_star" data-value="1" id="rating1" width="32"
+                      src="/static/image/star_empty.png">
+                
+                  <img class="rating_star" data-value="2" id="rating2" width="32"
+                      src="/static/image/star_empty.png">
+                
+                  <img class="rating_star" data-value="3" id="rating3" width="32"
+                      src="/static/image/star_empty.png">
+                
+                  <img class="rating_star" data-value="4" id="rating4" width="32"
+                      src="/static/image/star_empty.png">
+                
+              </div>
+              <button
+                  class="float-right py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md focus:outline-none">
+                작성하기
+              </button>
+            </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</body>

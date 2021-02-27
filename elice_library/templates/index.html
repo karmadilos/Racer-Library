@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이서 도서관</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div>
+        <form action = "/login" method="POST">
+            <input type="email" name = "email" placeholder="Email">
+            <input type="password"  name = "password" placeholder="Password">
+            <input type = "submit" value = "로그인"/>
+            <a href="/register">회원가입</a>
+        </form>
+    </div>
+</body>
+</html>
