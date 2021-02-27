@@ -60,8 +60,8 @@ class Rental(db.Model):
 #         self.
 
 # db세팅법
-# 0. 현재 위치를 myproject로 이동
-# 1. export FLASK_APP=racer-library
+# 0. 현재 위치를 racer-library로 이동
+# 1. export FLASK_APP=elice_library
 # 2. export FLASK_ENV=development
 # 3. flask db init (최초 한번 수행. 데이터베이스를 관리하는 초기 파일들을 migrations라는 디렉터리에 생성)
 # 4. flask db migrate (모델을 새로 생성하거나 변경할때 사용.)
