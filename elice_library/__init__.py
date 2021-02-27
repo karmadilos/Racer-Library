@@ -32,7 +32,7 @@ def create_app():
 # export FLASK_APP=elice_library
 # export FLASK_ENV=development
 # export FLASK_RUN_RELOAD=False
-# flask run --host=127.0.0.1 --port=5000
+# flask run --host=0.0.0.0 --port=80
 
 # 또는 
 # if __name__ == '__main__':

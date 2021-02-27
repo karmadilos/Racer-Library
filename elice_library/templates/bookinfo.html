@@ -62,19 +62,6 @@
     </header>
 
     <main>
-        <section class="py-5 text-center container">
-          <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-              <h3 class="fw-light">레이서 도서관</h3>
-              <p class="lead text-muted">원하는 책을 찾아보고 대여하세요!</p>
-              <p>
-                <a href="#" class="btn btn-primary my-2">웹 개발</a>
-                <a href="#" class="btn btn-secondary my-2">인공지능</a>
-              </p>
-            </div>
-          </div>
-        </section>
-      
         <div class="album py-5 bg-light">
           <div class="container">
       
@@ -82,7 +69,7 @@
               {% for book in book_info %}
               <div class="col">
                 <div class="card shadow-sm">
-                  <img src="{{ book.image_path }}">
+                  <img src="../{{ book.image_path }}">
                   <div class="card-body">
                     <p class="card-text"><a href="/book/{{ book.id }}">{{ book.bookname }}</a></p>
                     <div class="d-flex justify-content-between align-items-center">
