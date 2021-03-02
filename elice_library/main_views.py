@@ -78,7 +78,7 @@ def logout():
     # 세션값을 False로 바꿔주고 홈으로 이동
     session['logged_in'] = False
     session.pop('user_id')
-    return render_template('index.html')
+    return redirect(url_for('main.index'))
 
 @bp.route("/rental")
 def rental():
@@ -108,5 +108,9 @@ def back():
 
 @bp.route("/book/<int:id>/")
 def book(id):
-    book_info = Book.query.filter(Book.id==id)
-    return render_template('bookinfo.html', book_info=book_info)
+    if request.method == 'GET':
+        book_info = Book.query.filter(Book.id==id)
+        # user_info = User.query.all
+        return render_template('bookinfo.html', book_info=book_info)
+    # elif request.method == 'POST':
+        
