@@ -92,10 +92,11 @@ def back():
         return render_template('back.html', rental_list=rental_list)
     elif request.method == 'POST':
         book_id = request.form['book_id']
+        id = request.form['id']
         book = Book.query.get(book_id)
         book.stock += 1
-        rental = Rental.query.filter(Rental.book_id==book_id).first()
-        db.session.delete(rental)
+        rental = Rental.query.filter(Rental.id==id).first()
+        rental.return_date = datetime.today()
         try:
             db.session.commit()
         except:
