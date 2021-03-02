@@ -25,7 +25,6 @@
         }
       </style>
 </head>
-
 <body>
     <header>
         <div class="collapse bg-dark" id="navbarHeader">
@@ -48,10 +47,7 @@
         </div>
         <div class="navbar navbar-dark bg-dark shadow-sm">
           <div class="container">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
               <a href="/"><strong>엘리스 도서관</strong></a>
-            </a>
             <a class="btn btn-outline-primary" href="/logout">로그아웃</a>
             <a class="btn btn-outline-primary" href="/rental">대여목록</a>
             <a class="btn btn-outline-primary" href="/back">반납하기</a>
@@ -62,32 +58,6 @@
         </div>
     </header>
 
-    <!-- <main>
-        <div class="album py-5 bg-light">
-          <div class="container">
-      
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              {% for book in book_info %}
-              <div class="col">
-                <div class="card shadow-sm">
-                  <img src="../{{ book.image_path }}">
-                  <div class="card-body">
-                    <p class="card-text"><a href="/book/{{ book.id }}">{{ book.bookname }}</a></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">대여하기</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
-                      </div>
-                      <small class="text-muted">남은책수 : {{ book.stock }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-    </main> -->
     <div class="min-h-screen bg-gray-200">  
       <div class=" w-100 min-h-full"> 
         <div class="flex flex-col items-center w-full">
@@ -145,11 +115,11 @@
                 <div style="clear: both"></div>
               </div> -->
             
-            <!-- <form method="post" class="mt-2">
+            <form method="post" class="mt-2">
               <textarea class="border-2 w-full" name="content"></textarea>
-              <input id="rating" type="hidden" name="rating"/>
+              <input type="text" name="rating"/>
+              <!-- <input id="rating" type="hidden" name="rating"/>
               <div class="flex float-left">
-                
                   <img class="rating_star" data-value="0" id="rating0" width="32"
                       src="/static/image/star_empty.png">
                 
@@ -164,13 +134,12 @@
                 
                   <img class="rating_star" data-value="4" id="rating4" width="32"
                       src="/static/image/star_empty.png">
-                
-              </div>
+              </div> -->
               <button
                   class="float-right py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md focus:outline-none">
                 작성하기
               </button>
-            </form> -->
+            </form>
           </div>
         </div>
       </div>
