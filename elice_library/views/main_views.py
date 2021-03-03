@@ -10,7 +10,9 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def index():
     if request.method == 'GET':
         if session.get('logged_in'):
-            book_list = Book.query.all()
+            page = request.args.get('page', type=int, default=1) # 페이지
+            book_list = Book.query.order_by(Book.id.asc())
+            book_list = book_list.paginate(page, per_page=9)
             return render_template('loggedin.html', book_list=book_list)
         else:
             return render_template('index.html')
