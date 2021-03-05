@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이서 도서관</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div class="login">
+        <h1>엘리스 도서관</h1>
+        <form method="post" class="post-form">
+            {{ form.csrf_token }}
+            {% include "form_errors.html" %}
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" value="{{ form.email.data or '' }}">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" value="{{ form.password.data or '' }}">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-large">로그인</button>
+        </form>
+        <form action="{{ url_for('auth.signup') }}" method="GET">
+            <button class="btn btn-primary btn-block btn-large">회원가입</button>
+        </form>
+        <!-- <form action = "/login" method="POST">
+            <input type="email" name = "email" placeholder="Email" required="required" />
+            <input type="password"  name = "password" placeholder="Password" required="required" />
+            <button class="btn btn-primary btn-block btn-large">로그인</button>
+        </form> -->
+    </div>
+</body>
+</html>

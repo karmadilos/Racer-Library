@@ -24,7 +24,7 @@ def create_app():
     app.config.from_object(config)
 
     # secret_key 설정 (session을 사용하기 위해서 필요, 설정안하면 에러남)
-    app.secret_key = 'super secret key'
+    # app.secret_key = 'super secret key'
     
     # db객체를 create_app 함수 안에서 생성하면 블루프린트와 같은 다른 모듈에서 불러올 수 없다.
     # 따라서 db, migrate와 같은 객체는 create_app 함수 밖에서 생성하고, 객체 초기화는 create_app 함수에서 수행한다.
@@ -36,8 +36,13 @@ def create_app():
     from . import models
     from . import load_data
 
-    from .views import main_views
+    from .views import main_views, auth_views, comment_views
     app.register_blueprint(main_views.bp)
+    app.register_blueprint(auth_views.bp)
+    app.register_blueprint(comment_views.bp)
+
+    from .filter import format_datetime
+    app.jinja_env.filters['datetime'] = format_datetime
     
     return app
 

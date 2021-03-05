@@ -16,9 +16,9 @@
                       <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
                     </div>
                     {% if rental_info.return_date != None %}
-                    <small class="text-muted">대여날짜: {{ rental_info.rental_date.strftime('%Y-%m-%d') }} ~ {{ rental_info.return_date.strftime('%Y-%m-%d') }}</small>
+                    <small class="text-muted">대여날짜: {{ rental_info.rental_date|datetime }} ~ {{ rental_info.return_date|datetime }}</small>
                     {% elif rental_info.return_date == None %}
-                    <small class="text-muted">대여날짜: {{ rental_info.rental_date.strftime('%Y-%m-%d') }} ~ </small>
+                    <small class="text-muted">대여날짜: {{ rental_info.rental_date|datetime }} ~ </small>
                     {% endif %}
                   </div>
                 </div>

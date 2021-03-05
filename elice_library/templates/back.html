@@ -15,7 +15,6 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <form action = "/back" method="POST">
-                        <input type="hidden" name = "book_id" value = "{{ rental_info.book.id }}">
                         <input type="hidden" name = "id" value = "{{ rental_info.id }}">
                         <button class="btn btn-sm btn-outline-secondary">반납하기</button>
                         <!-- <button>요소 자체는 submit속성을 지니고 있기 때문에 type 정의가 되어있지 않다면 submit 동작을 한다. -->
@@ -23,7 +22,7 @@
                       <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
                     </div>
                     
-                    <small class="text-muted">대여일자 : {{ rental_info.rental_date.strftime('%Y-%m-%d') }}</small>
+                    <small class="text-muted">대여일자 : {{ rental_info.rental_date|datetime }}</small>
                   </div>
                 </div>
               </div>

@@ -3,13 +3,8 @@ from elice_library import db
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(50), nullable=False)
-
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = password
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -25,47 +20,25 @@ class Book(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     link = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, bookname, publisher, author, published_date, pages, isbn, description, image_path, stock, rating, link):
-        self.bookname = bookname
-        self.publisher = publisher
-        self.author = author
-        self.published_date = published_date
-        self.pages = pages
-        self.isbn = isbn
-        self.description = description
-        self.image_path = image_path
-        self.stock = stock
-        self.rating = rating
-        self.link = link
-
 class Rental(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id', ondelete='CASCADE'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id', ondelete='CASCADE'), nullable=False)
     user = db.relationship('User', backref=db.backref('rental_set'))
     book = db.relationship('Book', backref=db.backref('rental_set'))
     rental_date = db.Column(db.DateTime(), nullable=False)
     return_date =db.Column(db.DateTime(), nullable=True)
 
-    def __init__(self, user_id, book_id, rental_date):
-        self.user_id = user_id
-        self.book_id = book_id
-        self.rental_date = rental_date
-
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id', ondelete='CASCADE'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id', ondelete='CASCADE'), nullable=False)
     user = db.relationship('User', backref=db.backref('comment_set'))
     book = db.relationship('Book', backref=db.backref('comment_set'))
-    content = db.Column(db.Text, nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
-
-    def __init__(self,user_id, book_id, content, rating):
-        self.user_id = user_id
-        self.book_id = book_id
-        self.content = content
-        self.rating = rating
+    content = db.Column(db.Text(), nullable=False)
+    rating = db.Column(db.Integer)
+    create_date = db.Column(db.DateTime(), nullable=False)
+    modify_date = db.Column(db.DateTime())
 
 # db세팅법
 # 0. 현재 위치를 racer-library로 이동
