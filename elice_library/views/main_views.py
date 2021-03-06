@@ -118,10 +118,34 @@ def book(id):
     form = CommentForm()
     book_info = Book.query.filter(Book.id==id).first()
     if request.method == 'POST' and form.validate_on_submit():
-        comment = Comment(user=g.user, content=form.content.data, create_date=datetime.now(), book=book_info)
+        try:
+            rating = request.form['rating']
+        except: 
+            rating = 0
+        comment = Comment(user=g.user, content=form.content.data, create_date=datetime.now(), book=book_info, rating=rating)
         db.session.add(comment)
+        comment_all = Comment.query.filter(Comment.book==book_info)
+        comment_len = Comment.query.filter(Comment.book==book_info).all()
+        rating_all = 0
+        for comment_each in comment_all:
+            rating_all += int(comment_each.rating)
+        rating_portion = rating_all//len(comment_len)
+        rating_rest = rating_all/len(comment_len) - rating_portion
+        if rating_rest >= 0.5:
+            rating_rest = 1
+        else:
+            rating_rest = 0
+        book_info.rating = rating_portion + rating_rest
         db.session.commit()
-        return redirect(url_for('main.book', id=id))
+        # return redirect(url_for('main.book', id=id))
+        return redirect('{}#comment_{}'.format(url_for('main.book', id=id), comment.id))
     elif request.method == 'GET':
-        return render_template('bookinfo.html', book_info=book_info, form=form)
+        comment_set = reversed(book_info.comment_set)
+        comment_all = Comment.query.filter(Comment.book==book_info)
+        comment_len = Comment.query.filter(Comment.book==book_info).all()
+        rating_all = 0
+        for comment_each in comment_all:
+            rating_all += int(comment_each.rating)
+        rating_avg = rating_all/len(comment_len)
+        return render_template('bookinfo.html', book_info=book_info, form=form, comment_set=comment_set, rating_avg=rating_avg)
         

@@ -7,7 +7,7 @@
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for rental_info in rental_list %}
             {% if rental_info.return_date == None %}
-            <div class="col">
+            <div class="col" style="width:25%;">
               <div class="card shadow-sm">
                 <img src="{{ rental_info.book.image_path }}">
                 <div class="card-body">
@@ -19,7 +19,6 @@
                         <button class="btn btn-sm btn-outline-secondary">반납하기</button>
                         <!-- <button>요소 자체는 submit속성을 지니고 있기 때문에 type 정의가 되어있지 않다면 submit 동작을 한다. -->
                       </form>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">리뷰쓰기</button>
                     </div>
                     
                     <small class="text-muted">대여일자 : {{ rental_info.rental_date|datetime }}</small>

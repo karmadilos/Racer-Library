@@ -26,6 +26,7 @@ def create_comment(book_id):
 def modify(comment_id):
     comment = Comment.query.get_or_404(comment_id)
     book_info = comment.book
+    book_id = book_info.id
     if g.user != comment.user:
         flash('수정권한이 없습니다')
         return redirect(url_for('main.book', id=comment.book.id))
@@ -35,7 +36,8 @@ def modify(comment_id):
             form.populate_obj(comment)
             comment.modify_date = datetime.now()  # 수정일시 저장
             db.session.commit()
-            return redirect(url_for('main.book', id=comment.book.id))
+            return redirect('{}#comment_{}'.format(url_for('main.book', id=book_id), comment.id))
+            # return redirect(url_for('main.book', id=comment.book.id))
     else:
         form = CommentForm(obj=comment)
     return render_template('bookinfo.html', book_info=book_info, form=form)
@@ -50,4 +52,5 @@ def delete(comment_id):
         return redirect(url_for('main.book', id=book_id))
     db.session.delete(comment)
     db.session.commit()
-    return redirect(url_for('main.book', id=book_id))
+    return redirect('{}#comment_{}'.format(url_for('main.book', id=book_id), comment.id))
+    # return redirect(url_for('main.book', id=book_id))
