@@ -102,4 +102,14 @@
   <!-- 페이징처리 끝 -->
     </div>
 </main>
+<!-- 남은 책 없을 때 경고 메시지 -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert('{{message}}')
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 {% endblock %}

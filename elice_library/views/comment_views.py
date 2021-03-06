@@ -47,10 +47,23 @@ def modify(comment_id):
 def delete(comment_id):
     comment = Comment.query.get(comment_id)
     book_id = comment.book.id
+    book_info = Book.query.filter(Book.id==book_id).first()
     if g.user != comment.user:
         flash('삭제권한이 없습니다')
         return redirect(url_for('main.book', id=book_id))
     db.session.delete(comment)
+    comment_all = Comment.query.filter(Comment.book==book_info)
+    comment_len = Comment.query.filter(Comment.book==book_info).all()
+    rating_all = 0
+    for comment_each in comment_all:
+        rating_all += int(comment_each.rating)
+    rating_portion = rating_all//len(comment_len)
+    rating_rest = rating_all/len(comment_len) - rating_portion
+    if rating_rest >= 0.5:
+        rating_rest = 1
+    else:
+        rating_rest = 0
+    book_info.rating = rating_portion + rating_rest
     db.session.commit()
     return redirect('{}#comment_{}'.format(url_for('main.book', id=book_id), comment.id))
     # return redirect(url_for('main.book', id=book_id))

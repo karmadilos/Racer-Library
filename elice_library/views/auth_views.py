@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, url_for, jsonify, session, request, redirect, flash, g
+from flask import Blueprint, Flask, render_template, url_for, jsonify, session, request, flash, g
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import redirect
 
@@ -16,6 +16,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def signup():
     form = UserCreateForm()
     if request.method == 'POST' and form.validate_on_submit():
+        # filter_by 와 filter는 조금 다르다. 비교해보며 공부하자.
         user = User.query.filter_by(email=form.email.data).first()
         if not user:
             user = User(username=form.username.data, password=generate_password_hash(form.password1.data), email=form.email.data)
