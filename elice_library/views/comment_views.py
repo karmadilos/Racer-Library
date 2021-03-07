@@ -40,7 +40,16 @@ def modify(comment_id):
             # return redirect(url_for('main.book', id=comment.book.id))
     else:
         form = CommentForm(obj=comment)
-    return render_template('bookinfo.html', book_info=book_info, form=form)
+    comment_all = Comment.query.filter(Comment.book==book_info)
+    comment_len = Comment.query.filter(Comment.book==book_info).all()
+    rating_all = 0
+    for comment_each in comment_all:
+        rating_all += int(comment_each.rating)
+    if len(comment_len) == 0:
+        rating_avg = 0
+    else:
+        rating_avg = rating_all/len(comment_len)
+    return render_template('bookinfo.html', book_info=book_info, form=form, rating_avg=rating_avg)
 
 @bp.route('/delete/<int:comment_id>')
 @login_required
