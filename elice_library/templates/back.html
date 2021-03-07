@@ -8,10 +8,10 @@
             {% for rental_info in rental_list %}
             {% if rental_info.return_date == None %}
             <div class="col" style="width:25%;">
-              <div class="card shadow-sm">
-                <img src="{{ rental_info.book.image_path }}">
-                <div class="card-body">
-                  <p class="card-text"><a href="/book/{{ rental_info.book_id }}">{{ rental_info.book.bookname }}</a></p>
+              <div class="card shadow-sm" style="height:90%">
+                <img src="{{ rental_info.book.image_path }}" style="height:70%;">
+                <div class="card-body" style="height:30%;">
+                  <p class="card-text" style="height:40%;"><a href="/book/{{ rental_info.book_id }}">{{ rental_info.book.bookname }}</a></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <form action = "/back" method="POST">

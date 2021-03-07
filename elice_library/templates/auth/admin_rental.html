@@ -39,7 +39,7 @@
               {% if g.user and g.user.id==1 %}
                 <a class="btn btn-outline-primary" href="/">돌아가기</a>
               {% endif %}
-              <a class="btn btn-outline-primary" href="/auth/admin">유저목록</a>
+              <a class="btn btn-outline-primary" href="/auth/user">유저목록</a>
               <a class="btn btn-outline-primary" href="/auth/book">책목록</a>
               <a class="btn btn-outline-primary" href="/auth/rental">대여목록</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
                 <td>{{ rental.book.bookname }}</td>
                 <td>{{ rental.rental_date|datetime }}</td>
                 {% if rental.return_date == None %}
-                  <td>None</td>
+                  <td>대여중</td>
                 {% else %}
                   <td>{{ rental.return_date|datetime }}</td>
                 {% endif %}
