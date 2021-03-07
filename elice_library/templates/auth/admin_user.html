@@ -58,7 +58,6 @@
                 <th>번호</th>
                 <th>이름</th>
                 <th>이메일</th>
-                <th>비밀번호</th>
             </tr>
             </thead>
             <tbody>
@@ -68,7 +67,6 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
             </tr>
             {% endfor %}
             {% else %}
