@@ -36,9 +36,12 @@
               <a href="/" style="color:#ffffff"><strong>엘리스 도서관</strong></a>
             </div>
             <div style="width:90%;text-align:right;">
-              <a class="btn btn-outline-primary" href="/auth/logout">로그아웃</a>
-              <a class="btn btn-outline-primary" href="/rental">대여목록</a>
-              <a class="btn btn-outline-primary" href="/back">반납하기</a>
+              {% if g.user and g.user.id==1 %}
+                <a class="btn btn-outline-primary" href="/">돌아가기</a>
+              {% endif %}
+              <a class="btn btn-outline-primary" href="/auth/admin">유저목록</a>
+              <a class="btn btn-outline-primary" href="/auth/book">책목록</a>
+              <a class="btn btn-outline-primary" href="/auth/rental">대여목록</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -48,15 +51,47 @@
         </div>
       <!-- 네비게이션 바 End -->
     </header>
-    {% block content %}
-    {% endblock %}
+    <div class="container my-3">
+        <table class="table">
+            <thead>
+            <tr class="thead-dark">
+                <th>번호</th>
+                <th>유저</th>
+                <th>책</th>
+                <th>대여일</th>
+                <th>반납일</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if rental_list %}
+            {% for rental in rental_list %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ rental.user.username }}</td>
+                <td>{{ rental.book.bookname }}</td>
+                <td>{{ rental.rental_date|datetime }}</td>
+                {% if rental.return_date == None %}
+                  <td>None</td>
+                {% else %}
+                  <td>{{ rental.return_date|datetime }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">대여 내역이 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
     <footer class="text-muted py-5">
         <div class="container">
-          <p class="float-end mb-1">
+        <p class="float-end mb-1">
             <a href="#">Back to top</a>
-          </p>
-          <p class="mb-1">Copyright 2021 엘리스 Inc. All rights reserved.</p>
-          <p class="mb-0">Need information? <a href="/">Visit the homepage</a> or email <a href="/">ksy9926@naver.com</a></p>
+        </p>
+        <p class="mb-1">Copyright 2021 엘리스 Inc. All rights reserved.</p>
+        <p class="mb-0">Need information? <a href="/">Visit the homepage</a> or email <a href="/">ksy9926@naver.com</a></p>
         </div>
     </footer>
     <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
@@ -64,4 +99,3 @@
     {% block script %}
     {% endblock %}
 </body>
-</html>

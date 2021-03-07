@@ -4,7 +4,7 @@ from werkzeug.utils import redirect
 
 from elice_library import db
 from elice_library.forms import UserCreateForm, UserLoginForm
-from elice_library.models import User
+from elice_library.models import User, Book, Rental, Comment
 from datetime import date, datetime
 
 import functools
@@ -40,6 +40,8 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user.id
+            if user.id == 1:
+                return redirect(url_for('auth.admin'))
             return redirect(url_for('main.index'))
         flash(error)
     return render_template('auth/login.html', form=form)
@@ -56,6 +58,30 @@ def load_logged_in_user():
 def logout():
     session.clear()
     return redirect(url_for('main.index'))
+
+@bp.route('/admin', methods=['GET', 'POST'])
+def admin():
+    book_list = Book.query.all()
+    user_list = User.query.all()
+    rental_list = Rental.query.all()
+    comment_list = Comment.query.all()
+    return render_template('auth/admin.html', book_list=book_list, user_list=user_list, rental_list=rental_list, comment_list=comment_list)
+
+@bp.route('/book', methods=['GET', 'POST'])
+def book():
+    book_list = Book.query.all()
+    user_list = User.query.all()
+    rental_list = Rental.query.all()
+    comment_list = Comment.query.all()
+    return render_template('auth/admin_book.html', book_list=book_list, user_list=user_list, rental_list=rental_list, comment_list=comment_list)
+
+@bp.route('/rental', methods=['GET', 'POST'])
+def rental():
+    book_list = Book.query.all()
+    user_list = User.query.all()
+    rental_list = Rental.query.all()
+    comment_list = Comment.query.all()
+    return render_template('auth/admin_rental.html', book_list=book_list, user_list=user_list, rental_list=rental_list, comment_list=comment_list)
 
 def login_required(view):
     @functools.wraps(view)
