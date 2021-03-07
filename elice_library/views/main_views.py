@@ -47,7 +47,7 @@ def index():
             page = request.args.get('page', type=int, default=1) # 페이지
             book_list = Book.query.order_by(Book.id.asc())
             book_list = book_list.paginate(page, per_page=8)
-            return render_template('loggedin.html', book_list=book_list)
+            return redirect(url_for('main.index'))
         else:
             flash('남은 책이 없습니다.')
             return redirect(url_for('main.index'))
