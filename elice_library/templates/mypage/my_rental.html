@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>유저</th>
+            <th>책</th>
+            <th>대여일</th>
+            <th>반납일</th>
+            <th>삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if rental_list %}
+        {% for rental in rental_list %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ rental.user.username }}</td>
+            <td>{{ rental.book.bookname }}</td>
+            <td>{{ rental.rental_date|datetime }}</td>
+            {% if rental.return_date == None %}
+              <td>대여중</td>
+              <td></td>
+            {% else %}
+              <td>{{ rental.return_date|datetime }}</td>
+              <td><a href="{{ url_for('mypage.rental_delete', rental_id=rental.id) }}">삭제</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">대여 내역이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

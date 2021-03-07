@@ -4,10 +4,18 @@ from werkzeug.utils import redirect
 
 from elice_library import db
 from elice_library.forms import UserCreateForm, UserLoginForm
-from elice_library.models import User
+from elice_library.models import User, Book, Rental, Comment
 from datetime import date, datetime
 
 import functools
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        return view(**kwargs)
+    return wrapped_view
 
 # 블루프린트 객체 생성. 이름('main'), 모듈명, URL_prefix의 값을 전달해준다.
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -57,10 +65,41 @@ def logout():
     session.clear()
     return redirect(url_for('main.index'))
 
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-        return view(**kwargs)
-    return wrapped_view
+@bp.route('/user', methods=['GET', 'POST'])
+def user():
+    user_list = User.query.all()
+    return render_template('auth/admin_user.html', user_list=user_list)
+
+@bp.route('/book', methods=['GET', 'POST'])
+def book():
+    book_list = Book.query.all()
+    return render_template('auth/admin_book.html', book_list=book_list)
+
+@bp.route('/rental', methods=['GET', 'POST'])
+def rental():
+    rental_list = Rental.query.all()
+    return render_template('auth/admin_rental.html', rental_list=rental_list)
+
+@bp.route('/change')
+@login_required
+def password_change(user_id):
+    user = User.query.get(user_id)
+    if g.user != user:
+        flash('비밀번호 변경 권한이 없습니다')
+        return redirect(url_for('mypage.info'))
+    session.clear()
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('mypage.info'))
+
+@bp.route('/withdraw<int:user_id>')
+@login_required
+def withdraw(user_id):
+    user = User.query.get(user_id)
+    if g.user != user:
+        flash('탈퇴권한이 없습니다')
+        return redirect(url_for('mypage.info'))
+    session.clear()
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('main.index'))

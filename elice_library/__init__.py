@@ -36,10 +36,11 @@ def create_app():
     from . import models
     from . import load_data
 
-    from .views import main_views, auth_views, comment_views
+    from .views import main_views, auth_views, comment_views, mypage_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(comment_views.bp)
+    app.register_blueprint(mypage_views.bp)
 
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
@@ -65,6 +66,16 @@ def create_app():
 # 해당 서버 끄기
 # kill -9 process_number(ex. kill -9 3893)
 
+# SSH 접속한 상태에서
+# tmux  # 새로운 tmux 세션 열기
+
+# Tmux 세션 내부에서
+# sudo flask run -h 0.0.0.0 -p 80  # 또는 sudo python3 main.py
+
+# 새로 SSH 접속한 상태에서
+# tmux ls  # tmux 세션 목록 보기
+# tmux attach -t <세션이름>  # 세션 목록에서 조회한 세션 이름으로 세션에 접속합니다. 자동으로 이름이 생성된 경우 0부터 시작합니다.
+# tmux 안에서 exit 을 입력하면 종료된다.
 
 # 또는 
 # if __name__ == '__main__':

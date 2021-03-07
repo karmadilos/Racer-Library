@@ -18,7 +18,11 @@ def index():
             page = request.args.get('page', type=int, default=1) # 페이지
             book_list = Book.query.order_by(Book.id.asc())
             book_list = book_list.paginate(page, per_page=8)
-            return render_template('loggedin.html', book_list=book_list)
+            book_recommend = Book.query.order_by(Book.rating.desc()).limit(4)
+            # 관리자계정으로 로그인시 관리자모드 접속
+            if session['user_id']==1:
+                return render_template('loggedin.html', book_list=book_list, book_recommend=book_recommend, admin_id=1)
+            return render_template('loggedin.html', book_list=book_list, book_recommend=book_recommend)
         else:
             return redirect(url_for('auth.login'))
     elif request.method == 'POST':

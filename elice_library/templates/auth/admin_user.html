@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/star.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- <link rel="stylesheet" href="../static/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="../../static/css/tailwind.min.css"> -->
+    <title>레이서 도서관</title>
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+</head>
+<body>
+    <header>
+      <!-- 네비게이션바 -->
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+            <div style="width:10%;">
+              <a href="/" style="color:#ffffff"><strong>엘리스 도서관</strong></a>
+            </div>
+            <div style="width:90%;text-align:right;">
+              {% if g.user and g.user.id==1 %}
+                <a class="btn btn-outline-primary" href="/">돌아가기</a>
+              {% endif %}
+              <a class="btn btn-outline-primary" href="/auth/user">유저목록</a>
+              <a class="btn btn-outline-primary" href="/auth/book">책목록</a>
+              <a class="btn btn-outline-primary" href="/auth/rental">대여목록</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      <!-- 네비게이션 바 End -->
+    </header>
+    <div class="container my-3">
+        <table class="table">
+            <thead>
+            <tr class="thead-dark">
+                <th>번호</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>비밀번호</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if user_list %}
+            {% for user in user_list %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">등록된 회원이 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <footer class="text-muted py-5">
+        <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">Copyright 2021 엘리스 Inc. All rights reserved.</p>
+        <p class="mb-0">Need information? <a href="/">Visit the homepage</a> or email <a href="/">ksy9926@naver.com</a></p>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    {% block script %}
+    {% endblock %}
+</body>
