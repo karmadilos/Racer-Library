@@ -34,7 +34,21 @@ def modify(comment_id):
         form = CommentForm()
         if form.validate_on_submit():
             form.populate_obj(comment)
+            rating = request.form['rating']
+            comment.rating = rating
             comment.modify_date = datetime.now()  # 수정일시 저장
+            comment_all = Comment.query.filter(Comment.book==book_info)
+            comment_len = Comment.query.filter(Comment.book==book_info).all()
+            rating_all = 0
+            for comment_each in comment_all:
+                rating_all += int(comment_each.rating)
+            rating_portion = rating_all//len(comment_len)
+            rating_rest = rating_all/len(comment_len) - rating_portion
+            if rating_rest >= 0.5:
+                rating_rest = 1
+            else:
+                rating_rest = 0
+            book_info.rating = rating_portion + rating_rest
             db.session.commit()
             return redirect('{}#comment_{}'.format(url_for('main.book', id=book_id), comment.id))
             # return redirect(url_for('main.book', id=comment.book.id))

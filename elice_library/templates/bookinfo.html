@@ -49,22 +49,36 @@
         {% for comment in comment_set %}
           <!-- 댓글 작성시 스크롤초기화 방지 -->
           <a name="comment_{{ comment.id }}"></a>
-          <div class="comment py-2 text-muted">
-            <span style="white-space:pre-line;">{{ comment.content }}</span>
-            <span>
-               - {{ comment.user.username }}, {{ comment.create_date|datetime }}
-              {% if comment.modify_date %}
-              (수정:{{ comment.modify_date|datetime }})
+          <div style="border-top:1px solid #ddd;">
+            <div class="comment py-2 text-muted" style="display: inline-block;">
+              <span style="white-space:pre-line;">{{ comment.content }}</span>
+            </div>
+            <div class="comment py-2 text-muted" style="text-align: right;display:inline-block;position:absolute;right:7%;">
+              {% for i in range(book_info.rating//2) %}
+                <img src="../../static/images/full_star.png" style="display: inline-block;width:20px;">
+              {% endfor %}
+              {% for i in range(book_info.rating%2) %}
+                <img src="../../static/images/half_star.png" style="display: inline-block;width:20px;">
+              {% endfor %}
+              {% for i in range((10-book_info.rating)//2) %}
+                <img src="../../static/images/empty_star.png" style="display: inline-block;width:20px;">
+              {% endfor %}
+              <span>
+                - {{ comment.user.username }}, {{ comment.create_date|datetime }}
+                {% if comment.modify_date %}
+                (수정:{{ comment.modify_date|datetime }})
+                {% endif %}
+              </span>
+              {% if g.user == comment.user %}
+              <a href="{{ url_for('comment.modify', comment_id=comment.id) }}" class="small">수정</a>
+              <a href="#" class="small delete" data-uri="{{ url_for('comment.delete', comment_id=comment.id) }}">삭제</a>
               {% endif %}
-            </span>
-            {% if g.user == comment.user %}
-            <a href="{{ url_for('comment.modify', comment_id=comment.id) }}" class="small">수정</a>
-            <a href="#" class="small delete" data-uri="{{ url_for('comment.delete', comment_id=comment.id) }}">삭제</a>
-            {% endif %}
+            </div>
           </div>
           {% endfor %}
         </div>
         {% endif %}
+        <br/>
         <!-- 댓글 목록 End -->
 
         <!-- 댓글 작성 -->
