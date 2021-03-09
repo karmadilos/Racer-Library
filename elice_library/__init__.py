@@ -70,7 +70,8 @@ def create_app():
 # tmux  # 새로운 tmux 세션 열기
 
 # Tmux 세션 내부에서
-# sudo flask run -h 0.0.0.0 -p 80  # 또는 sudo python3 main.py
+# flask run
+# 서버 실행하는 것 확인 후 ctrl + b 누른 다음 d 를 눌러 tmux 바깥으로 나간다.
 
 # 새로 SSH 접속한 상태에서
 # tmux ls  # tmux 세션 목록 보기
