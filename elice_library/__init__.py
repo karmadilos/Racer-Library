@@ -83,4 +83,4 @@ def create_app():
 #    app.run(debug=True, use_reloader=False)
 
 # elice-kdt-ai-track-vm-racer-12.koreacentral.cloudapp.azure.com:5000 주소창 입력
-# 데이터베이스 관리시 flask shell 입력후 데이터보기
+# 데이터베이스 관리시 flask shell 입력후 데이터보기```
