@@ -1,3 +1,5 @@
 python-env/
 __pycache__
 todo.txt
+main.db
+migrations

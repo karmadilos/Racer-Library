@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>책 제목</th>
+            <th>댓글내용</th>
+            <th>별점</th>
+            <th>작성일</th>
+            <th>수정일</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if comment_list %}
+        {% for comment in comment_list %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td><a href="/book/{{ comment.book.id }}">{{ comment.book.bookname }}</a></td>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.rating }}</td>
+            <td>{{ comment.create_date|datetime }}</td>
+            {% if comment.modify_date == None %}
+              <td></td>
+            {% else %}
+              <td>{{ comment.modify_date|datetime }}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">작성한 댓글이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
