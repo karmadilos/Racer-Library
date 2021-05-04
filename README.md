@@ -1,14 +1,55 @@
-### DB 생성
-1. 현재 위치를 racer-library로 이동
-2. export FLASK_APP=elice_library
-3. export FLASK_ENV=development
-4. flask db init (최초 한번 수행. 데이터베이스를 관리하는 초기 파일들을 migrations라는 디렉터리에 생성)
-5. flask db migrate (모델을 새로 생성하거나 변경할때 사용.)
-6. flask db upgrade (모델의 변경 내용을 실제 데이터베이스에 적용할 때 사용)
+## 1. 프로젝트 소개
+- `도서대여 및 반납을 온라인으로 관리 할 수 있는 책 대여 웹 서비스`
+  - 엘리스에서 제공한 보유 도서 리스트
+  - 기술 스택
+  | 분류 | 이름 |
+  |------|------|
+  |Front|HTML, Jinja, CSS|
+  |Server|Flask|
+  |DB|SQLite, SQLAlchemy|
+  - 웹서비스에 대한 자세한 개요
+  > 책 정보와 대여상태를 제공함으로써 사용자들이 원하는 책을 자유롭게 대여하고 반납할 수 있는 서비스 제공
 
-### 실행순서
-1. 현재 위치를 racer-library로 이동
-2. export FLASK_APP=elice_library
-3. export FLASK_ENV=development
-4. export FLASK_RUN_RELOAD=False
-5. flask run
+## 2. 프로젝트 목표
+- `책 정보를 제공하고 리뷰와 평점을 통해 사용자가 원하는 책을 빌리고 반납할 수 있게 만든다.`
+
+## 3. 프로젝트 기능 설명
+- 로그인 / 회원가입
+  - 사용자로부터 아이디와 비밀번호를 입력받아 로그인
+  - 로그인한 유저에 대해 session으로 관리
+  - 비밀번호는 영문, 숫자, 특수문자를 조합하여 최소 8자리 이상 또는 영문, 숫자, 특수문자 중 2종류 이상을 조합하여 10자리 이상의 길이로 구성
+- 메인
+  - 현재 DB상에 존재하는 모든 책의 정보를 가져온다.
+  - 현재 DB상에 남아있는 책의 수를 표기한다.
+  - 책 이름 클릭시 해당 책 페이지로 이동
+  - 평점은 DB상에 담겨 있는 책의 평점의 평균으로 표기
+  - 페이지네이션. 한 페이지당 8권의 책 표기
+- 대여 / 반납
+  - 메인 페이지의 대여하기 버튼을 클릭하여 대여
+  - 남은 책이 없을 경우 대여가 불가능
+  - 대여중인 책은 같은 사용자가 또 다시 대여 불가
+  - 반납페이지에서는 대여한 모든 책을 표기
+  - 반납하기 버튼을 클릭하여 반납
+- 책소개 / 리뷰
+  - 책의 저자와 출판사 등 정보 표기
+  - 댓글 기능. 최신 댓글이 보이도록 sorting
+  - 댓글 작성 시 평점 입력.
+
+## 4. 버전
+  - Ver 1.0
+
+## 5. FAQ
+  - DB 생성
+    1. 현재 위치를 racer-library로 이동
+    2. export FLASK_APP=elice_library
+    3. export FLASK_ENV=development
+    4. flask db init (최초 한번 수행. 데이터베이스를 관리하는 초기 파일들을 migrations라는 디렉터리에 생성)
+    5. flask db migrate (모델을 새로 생성하거나 변경할때 사용.)
+    6. flask db upgrade (모델의 변경 내용을 실제 데이터베이스에 적용할 때 사용)
+
+  - 실행순서
+    1. 현재 위치를 racer-library로 이동
+    2. export FLASK_APP=elice_library
+    3. export FLASK_ENV=development
+    4. export FLASK_RUN_RELOAD=False
+    5. flask run
